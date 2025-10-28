@@ -46,3 +46,9 @@ Try it now: [http://localhost:5000](http://localhost:5000) *(after running local
 
 ---
 
+## 🧑‍💻 Author
+
+**👋 Balaji Selvam**  
+📍 Developer | Tech Enthusiast | Lifelong Learner  
+
+
