@@ -17,38 +17,33 @@ app.get("/leetcode/:username", async (req, res) => {
 
   try {
     const apiUrl = `https://leetcode-api-faisalshohag.vercel.app/${username}`;
-    console.log("Fetching:", apiUrl);
-
     const response = await fetch(apiUrl);
 
     if (!response.ok) {
-      if (response.status === 404) {
-        return res.status(404).json({ error: "User not found" });
-      }
-      throw new Error(`API error: ${response.status}`);
+      if (response.status === 404) return res.status(404).json({ error: "User not found" });
+      throw new Error(`API ${response.status}`);
     }
 
     const data = await response.json();
 
-    const result = {
-      name: data.realName || username,
-      ranking: data.ranking || "N/A",
-      totalSolved: data.totalSolved || 0,
-      easySolved: data.easySolved || 0,
-      mediumSolved: data.mediumSolved || 0,
-      hardSolved: data.hardSolved || 0,
-      totalEasy: data.totalEasy || 300,
-      totalMedium: data.totalMedium || 800,
-      totalHard: data.totalHard || 400,
-    };
-
+  // server.js (only the result mapping changed)
+  const result = {
+    name: data.realName || username,
+    avatar: "/logo.png", // Real URL
+    ranking: data.ranking || "N/A",
+    totalSolved: data.totalSolved || 0,
+    easySolved: data.easySolved || 0,
+    mediumSolved: data.mediumSolved || 0,
+    hardSolved: data.hardSolved || 0,
+    totalEasy: data.totalEasy || 300,
+    totalMedium: data.totalMedium || 800,
+    totalHard: data.totalHard || 400,
+  };
     res.json(result);
   } catch (err) {
-    console.error("Error:", err.message);
+    console.error(err);
     res.status(500).json({ error: "Failed to fetch data" });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
